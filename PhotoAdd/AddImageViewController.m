@@ -8,9 +8,12 @@
 
 #import "AddImageViewController.h"
 
+#define DOCUMENTS_DIRECTORY [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject]
+
 @interface AddImageViewController ()
 {
     NSMutableArray *attachPhoto;
+    NSMutableArray *descriptionPhoto;
     NSIndexPath *indexPath;
     IBOutlet UIButton *cameraButton;
     IBOutlet UIButton *galleryButton;
@@ -29,13 +32,13 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     attachPhoto = [[NSMutableArray alloc] init];
+    descriptionPhoto = [[NSMutableArray alloc] init];
     [self registerForKeyboardNotifications];
 }
 
 -(IBAction) addPhotoFromGallery:(id) sender {
     UIImagePickerController * picker = [[UIImagePickerController alloc] init];
     picker.delegate = self;
-    
     picker.sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
     [self presentModalViewController:picker animated:YES];
 }
@@ -43,58 +46,75 @@
 -(IBAction) addPhotoFromCamera:(id) sender {
     UIImagePickerController * picker = [[UIImagePickerController alloc] init];
     picker.delegate = self;
-
     picker.sourceType = UIImagePickerControllerSourceTypeCamera;
-
 }
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     [picker dismissModalViewControllerAnimated:YES];
-    
     UIImage* img = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
     [self addImage:img];
 }
 
 -(void)addImage:(UIImage*)img
 {
-    [attachPhoto addObject:img];
+    if (img != nil)
+    {
+        NSString * timeStamp = [NSString stringWithFormat:@"%f",[[NSDate date] timeIntervalSince1970] * 1000];
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
+                                                             NSUserDomainMask, YES);
+        NSString *documentsDirectory = [paths objectAtIndex:0];
+        NSString* path = [documentsDirectory stringByAppendingPathComponent:
+                          ([NSString stringWithString: @"%@"], timeStamp)];
+        NSData* data = UIImagePNGRepresentation(img);
+        [data writeToFile:path atomically:YES];
+        [attachPhoto addObject:timeStamp];
+        [descriptionPhoto addObject:@""];
+    }
     [self.collectionView reloadData];
 }
 
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     return attachPhoto.count;
-    
 }
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *identifier = @"Cell";
     
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier: identifier forIndexPath:indexPath];
-    
-    cell.backgroundColor = [UIColor colorWithPatternImage: attachPhoto[indexPath.row]];
+    NSString *urlImage = [DOCUMENTS_DIRECTORY stringByAppendingString:@"/"];
+    urlImage = [urlImage stringByAppendingString:attachPhoto[indexPath.row]];
+    NSLog(@"%@", urlImage);
+    cell.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:urlImage]];
     if (attachPhoto.count == 1) {
-        self.fullAttachmentImage.image = attachPhoto[0];
+    self.fullAttachmentImage.image = [UIImage imageNamed:urlImage];
     }
     return cell;
 }
 
-NSInteger selectedPhotoIndex;
-
+NSInteger *indexCell;
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     [collectionView selectItemAtIndexPath:indexPath animated:YES scrollPosition:UICollectionViewScrollPositionCenteredHorizontally];
-    UIImage *pic = attachPhoto[indexPath.row];
-    self.fullAttachmentImage.image = pic;
-
-    
-    
+    NSString *urlImage = [DOCUMENTS_DIRECTORY stringByAppendingString:@"/"];
+    urlImage = [urlImage stringByAppendingString:attachPhoto[indexPath.row]];
+    self.fullAttachmentImage.image = [UIImage imageNamed:urlImage];
+    NSLog(@"%@", indexPath.row);
+    textField.text = descriptionPhoto[indexPath.row];
+    indexCell = indexPath.row;
 }
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
     [self.view endEditing:YES];
 }
 
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+    [descriptionPhoto replaceObjectAtIndex:indexCell
+                                withObject:[textField text]];
+    NSLog([descriptionPhoto description],nil);
+    return YES;
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -129,6 +149,7 @@ NSInteger selectedPhotoIndex;
     CGRect frame = self.view.frame;
     frame.origin.y = 0;
     [self.view setFrame:frame];
+    NSLog(@"%@", descriptionPhoto);
 }
 
 
