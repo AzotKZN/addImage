@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface ViewController : UIViewController
+-(void) printPictureAndDescription:(NSMutableArray*)photo and: (NSMutableArray*) photoDescription;
 
 
 @end

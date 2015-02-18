@@ -8,5 +8,8 @@
 
 #import <UIKit/UIKit.h>
 @interface AddImageViewController : UIViewController <UINavigationControllerDelegate, UIImagePickerControllerDelegate>
-
+{
+    NSMutableArray *attachPhoto;
+    NSMutableArray *descriptionPhoto;
+}
 @end

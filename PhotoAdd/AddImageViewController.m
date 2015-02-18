@@ -7,13 +7,11 @@
 //
 
 #import "AddImageViewController.h"
-
+#import "ViewController.h"
 #define DOCUMENTS_DIRECTORY [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject]
 
 @interface AddImageViewController ()
 {
-    NSMutableArray *attachPhoto;
-    NSMutableArray *descriptionPhoto;
     IBOutlet UIButton *cameraButton;
     IBOutlet UIButton *galleryButton;
     IBOutlet UIImageView *fullAttachmentImage;
@@ -38,7 +36,19 @@
 }
 
 -(void)done:(UIBarButtonItem *)sender {
+    if (attachPhoto.count != 0){
     [self.navigationController popToRootViewControllerAnimated:YES];
+    ViewController* vc = [[ViewController alloc] init];
+    [vc printPictureAndDescription:attachPhoto and:descriptionPhoto];
+    } else {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Ой!"
+                                                        message:@"Вы еще не добавили вложения"
+                                                       delegate:nil
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+        [alert show];
+
+    }
 }
 
 -(IBAction) addPhotoFromGallery:(id) sender {
@@ -75,7 +85,7 @@
         [descriptionPhoto addObject:@""];
         
         if (attachPhoto.count >= 1) {
-            self.textField.hidden = NO;
+            _textField.hidden = NO;
         } else {
            _textField.hidden = YES;
         }
@@ -93,7 +103,6 @@
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier: identifier forIndexPath:indexPath];
     NSString *urlImage = [DOCUMENTS_DIRECTORY stringByAppendingString:@"/"];
     urlImage = [urlImage stringByAppendingString:attachPhoto[indexPath.row]];
-    NSLog(@"%@", urlImage);
     cell.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:urlImage]];
     if (attachPhoto.count == 1) {
     self.fullAttachmentImage.image = [UIImage imageNamed:urlImage];

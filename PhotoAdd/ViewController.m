@@ -19,6 +19,12 @@
     // Do any additional setup after loading the view, typically from a nib.
 }
 
+-(void) printPictureAndDescription:(NSMutableArray*)photo and: (NSMutableArray*) photoDescription {
+    NSLog(@"%@", photo);
+    NSLog(@"Теперь их описания:");
+    NSLog(@"%@", photoDescription);
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
