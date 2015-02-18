@@ -49,9 +49,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" restorationIdentifier="test" translatesAutoresizingMaskIntoConstraints="NO" id="3m5-eO-gd6">
-                                <rect key="frame" x="0.0" y="64" width="375" height="491"/>
-                            </imageView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RlQ-Cv-chc">
                                 <rect key="frame" x="322" y="563" width="53" height="50"/>
                                 <state key="normal">
@@ -78,8 +75,14 @@
                                             <rect key="frame" x="0.0" y="0.0" width="110" height="109"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" tag="100" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6OA-KB-Xbu">
+                                                <imageView userInteractionEnabled="NO" tag="100" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6OA-KB-Xbu">
                                                     <rect key="frame" x="0.0" y="0.0" width="110" height="110"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="110" id="2hb-7p-toB"/>
+                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="110" id="4ue-6h-QeK"/>
+                                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="110" id="neH-fR-hdK"/>
+                                                        <constraint firstAttribute="height" constant="110" id="pHd-zD-BYe"/>
+                                                    </constraints>
                                                 </imageView>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -98,7 +101,19 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="gal.png" translatesAutoresizingMaskIntoConstraints="NO" id="Vec-RN-FRM">
                                 <rect key="frame" x="322" y="616" width="50" height="50"/>
                             </imageView>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Заметка по фото" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ahx-aW-f06">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" restorationIdentifier="test" translatesAutoresizingMaskIntoConstraints="NO" id="3m5-eO-gd6">
+                                <rect key="frame" x="0.0" y="64" width="375" height="491"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wmy-er-ewK">
+                                <rect key="frame" x="322" y="616" width="50" height="51"/>
+                                <state key="normal">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="addPhotoFromGallery:" destination="5Td-v4-rsw" eventType="touchUpInside" id="RlZ-FH-3zb"/>
+                                </connections>
+                            </button>
+                            <textField hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Заметка по фото" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ahx-aW-f06">
                                 <rect key="frame" x="16" y="513" width="343" height="30"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -107,15 +122,6 @@
                                     <outlet property="delegate" destination="5Td-v4-rsw" id="BoB-Ty-JdH"/>
                                 </connections>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vOO-Ra-m4s">
-                                <rect key="frame" x="322" y="616" width="53" height="50"/>
-                                <state key="normal">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="addPhotoFromGallery:" destination="5Td-v4-rsw" eventType="touchUpInside" id="vhN-Gs-YkD"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -125,7 +131,7 @@
                         <outlet property="cameraButton" destination="RlQ-Cv-chc" id="RfC-qU-4wC"/>
                         <outlet property="collectionView" destination="UBS-Bg-FlJ" id="ymC-xd-85s"/>
                         <outlet property="fullAttachmentImage" destination="3m5-eO-gd6" id="grN-LU-ZVG"/>
-                        <outlet property="galleryButton" destination="vOO-Ra-m4s" id="Jhg-Q2-EhD"/>
+                        <outlet property="galleryButton" destination="Wmy-er-ewK" id="56i-VA-hFn"/>
                         <outlet property="textField" destination="Ahx-aW-f06" id="ihN-AH-twW"/>
                     </connections>
                 </viewController>

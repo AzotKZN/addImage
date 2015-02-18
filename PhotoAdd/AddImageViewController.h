@@ -7,6 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-@interface AddImageViewController : UIViewController
+@interface AddImageViewController : UIViewController <UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 
 @end
