@@ -10,6 +10,8 @@
 		92246D761A92119000A88C2F /* AddImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92246D751A92119000A88C2F /* AddImageViewController.m */; };
 		92246D791A921A5900A88C2F /* cam.png in Resources */ = {isa = PBXBuildFile; fileRef = 92246D771A921A5900A88C2F /* cam.png */; };
 		92246D7A1A921A5900A88C2F /* gal.png in Resources */ = {isa = PBXBuildFile; fileRef = 92246D781A921A5900A88C2F /* gal.png */; };
+		9236FF7E1A961BA700077D4A /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9236FF7C1A961BA700077D4A /* Crashlytics.framework */; };
+		9236FF7F1A961BA700077D4A /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9236FF7D1A961BA700077D4A /* Fabric.framework */; };
 		92B70CA71A8E7F150066D838 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 92B70CA61A8E7F150066D838 /* main.m */; };
 		92B70CAA1A8E7F150066D838 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 92B70CA91A8E7F150066D838 /* AppDelegate.m */; };
 		92B70CAD1A8E7F150066D838 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92B70CAC1A8E7F150066D838 /* ViewController.m */; };
@@ -34,6 +36,8 @@
 		92246D751A92119000A88C2F /* AddImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddImageViewController.m; sourceTree = "<group>"; };
 		92246D771A921A5900A88C2F /* cam.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cam.png; sourceTree = "<group>"; };
 		92246D781A921A5900A88C2F /* gal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gal.png; sourceTree = "<group>"; };
+		9236FF7C1A961BA700077D4A /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
+		9236FF7D1A961BA700077D4A /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		92B70CA11A8E7F150066D838 /* PhotoAdd.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PhotoAdd.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		92B70CA51A8E7F150066D838 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		92B70CA61A8E7F150066D838 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -54,6 +58,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9236FF7E1A961BA700077D4A /* Crashlytics.framework in Frameworks */,
+				9236FF7F1A961BA700077D4A /* Fabric.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -70,6 +76,8 @@
 		92B70C981A8E7F150066D838 = {
 			isa = PBXGroup;
 			children = (
+				9236FF7C1A961BA700077D4A /* Crashlytics.framework */,
+				9236FF7D1A961BA700077D4A /* Fabric.framework */,
 				92B70CA31A8E7F150066D838 /* PhotoAdd */,
 				92B70CBD1A8E7F150066D838 /* PhotoAddTests */,
 				92B70CA21A8E7F150066D838 /* Products */,
@@ -140,6 +148,7 @@
 				92B70C9D1A8E7F150066D838 /* Sources */,
 				92B70C9E1A8E7F150066D838 /* Frameworks */,
 				92B70C9F1A8E7F150066D838 /* Resources */,
+				9236FF7B1A961B6700077D4A /* Run Script */,
 			);
 			buildRules = (
 			);
@@ -226,6 +235,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		9236FF7B1A961B6700077D4A /* Run Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Run Script";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "./Fabric.framework/run c47b8b5613bc690dae87da304c12ab62763cda40 0cf41771852869eb3064130ad4edf54b089492dd17889dbecd713df29e10751d";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		92B70C9D1A8E7F150066D838 /* Sources */ = {
@@ -357,6 +383,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = PhotoAdd/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -367,6 +397,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = PhotoAdd/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";

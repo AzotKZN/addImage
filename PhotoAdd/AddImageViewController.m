@@ -107,7 +107,7 @@
     cell.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:urlImage]];
     if (attachPhoto.count == 1) {
     self.fullAttachmentImage.image = [UIImage imageNamed:urlImage];
-        self.fullAttachmentImage.contentMode = UIViewContentModeScaleAspectFit;
+    self.fullAttachmentImage.contentMode = UIViewContentModeScaleAspectFit;
     }
     return cell;
 }
